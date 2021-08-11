@@ -202,7 +202,11 @@ async function apt(tool: Tool, version: string): Promise<void> {
   core.info(`Attempting to install ${toolName} ${v} using apt-get`);
   // Ignore the return code so we can fall back to ghcup
   await exec(
-    `sudo -- sh -c "add-apt-repository -y ppa:hvr/ghc && apt-get update && apt-get -y install ${toolName}-${v}"`
+    `sudo -- sh -c "echo deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main > /etc/apt/sources.list.d/hvr-ghc.list"`
+  );
+  await exec(`cat /etc/apt/sources.list.d/hvr-ghc.list`);
+  await exec(
+    `sudo -- sh -c "apt-get update && apt-get -y install ${toolName}-${v}"`
   );
 }
 

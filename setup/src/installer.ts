@@ -204,6 +204,10 @@ async function apt(tool: Tool, version: string): Promise<void> {
   await exec(
     `sudo -- sh -c "echo deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main > /etc/apt/sources.list.d/hvr-ghc.list"`
   );
+  await exec(
+    `sudo -- sh -c "echo deb http://az01.clouds.archive.ubuntu.com/ubuntu/ xenial main >> /etc/apt/sources.list.d/hvr-ghc.list"`
+  );
+
   await exec(`cat /etc/apt/sources.list.d/hvr-ghc.list`);
   await exec(
     `sudo -- sh -c "apt-get update && apt-get -y install ${toolName}-${v}"`
